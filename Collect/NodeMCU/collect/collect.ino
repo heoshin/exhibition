@@ -6,10 +6,6 @@
 #include <ArduinoJson.h>
 #include <DHT.h>
 #include <MHZ19PWM.h>
-<<<<<<< HEAD
-
-const char* ssid     = "CollecterServer";
-=======
 #include <SoftwareSerial.h>
 #include <PMS.h>
 
@@ -20,26 +16,16 @@ PMS::DATA data;
 
 const char* ssid     = "CollecterServer";
 // const char* ssid     = "Heoshin-Thinkpad";
->>>>>>> f54a677 (first)
 const char* password = "12345678";
 String host = "http://192.168.137.1";
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
-<<<<<<< HEAD
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
-=======
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, 2);
->>>>>>> f54a677 (first)
 
 WiFiClient client;
 HTTPClient http;
 
-<<<<<<< HEAD
-DHT dht(2, DHT11);
-MHZ19PWM mhz(14, MHZ_CONTINUOUS_MODE);
-
-=======
 DHT dht(2, DHT22);
 MHZ19PWM mhz(14, MHZ_CONTINUOUS_MODE);
 
@@ -52,7 +38,6 @@ struct Pm
 
 Pm getPm();
 
->>>>>>> f54a677 (first)
 void DisplayInit();
 void DisplayInit();
 void DisplayPrint(String str, bool isEnter = true);
@@ -60,15 +45,6 @@ void WifiInit(String _ssid, String _pass);
 String RequestGet(String _url);
 String RequestPost(String _url, String _post);
 
-<<<<<<< HEAD
-void setup()
-{
-  Serial.begin(115200);
-  DisplayInit();
-  WifiInit(ssid, password);
-
-  dht.begin();
-=======
 
 void setup()
 {
@@ -83,7 +59,6 @@ void setup()
   pms7003.begin(9600);  // GPIO2 (D4 pin on ESP-12E Development Board)
   pms.passiveMode();    // Switch to passive mode
   pms.wakeUp();
->>>>>>> f54a677 (first)
 }
 
 void loop()
@@ -92,11 +67,6 @@ void loop()
   int hum = dht.readHumidity();
   float tmp = dht.readTemperature();
   float co2 = mhz.getCO2();
-<<<<<<< HEAD
-
-  String request_url = host + String("/sendGET?mac=") + WiFi.macAddress() + String("&tmp=") + String(tmp) + String("&hum=") + String(hum)
-    + String("&co2=") + String(co2);
-=======
   int voc = analogRead(A0);
   // float pm = 0.0;
 
@@ -122,7 +92,6 @@ void loop()
     + String("&pm10=") + String(pm.pm10)
     + String("&voc=") + String(voc);
     
->>>>>>> f54a677 (first)
   // String request_url = host + String("/sendPOST");
   String response = RequestGet(request_url);
   DisplayPrint(request_url);
@@ -204,8 +173,6 @@ String RequestPost(String _url, String _post) {
 	http.end();
   
   return response;
-<<<<<<< HEAD
-=======
 }
 
 Pm getPm() {
@@ -222,5 +189,4 @@ Pm getPm() {
     Serial.println("No data.");
   }
   return pm;
->>>>>>> f54a677 (first)
 }
